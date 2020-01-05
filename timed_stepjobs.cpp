@@ -7,6 +7,7 @@ TimedStepjob::TimedStepjob(int pin0, int pin1, int pin2, int pin3, int * state_d
   this->state_delays = state_delays;
   this->state_durations = state_durations;
   this->stepper = new Stepper(pin0, pin1, pin2, pin3, 2, -1);
+  this->next_time = millis();
   this->next_state();
 }
 
@@ -23,5 +24,5 @@ void TimedStepjob::next_state(){
 
   stepper->reset(state_delays[current_state], -1);
   stepper->update();
-  next_time = millis()+state_durations[current_state];
+  next_time = next_time+state_durations[current_state];
 }

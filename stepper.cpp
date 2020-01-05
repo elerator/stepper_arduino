@@ -43,7 +43,8 @@ bool Stepper::update(){
   if(steps_left > 0 || run_forever){
     unsigned long current_time = millis();
     if(t_next_step <= current_time){
-      t_next_step = current_time + millis_per_step;
+      t_next_step = t_next_step + millis_per_step;//If board is too slow, steps will be missed:
+      //We schedule time for next step while already two should have been performed by then. Motor speed will be incorrect
       steps_left --;
 
       //Serial.println(steps_left);
